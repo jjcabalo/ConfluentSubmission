@@ -1,0 +1,10 @@
+{
+  "name": "DatagenSourceConnector_Orders",
+  "config": {
+    "connector.class": "DatagenSource",
+    "kafka.topic": "raw_orders",
+    "schema.string": "{\"type\":\"record\",\"name\":\"Order\",\"namespace\":\"com.ecommerce.app\",\"fields\":[{\"name\":\"order_id\",\"type\":{\"type\":\"string\",\"arg.properties\":{\"regex\":\"ORD-[0-9]{5}\"}}},{\"name\":\"user_id\",\"type\":{\"type\":\"string\",\"arg.properties\":{\"regex\":\"USER-[0-9]{3}\"}}},{\"name\":\"amount\",\"type\":{\"type\":\"double\",\"arg.properties\":{\"range\":{\"min\":10.0,\"max\":999.0}}}}]}",
+    "max.interval": "2000",
+    "tasks.max": "1"
+  }
+}

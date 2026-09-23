@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudOps Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"><i data-feather="shield"></i></div>
+                <h2>FraudOps</h2>
+            </div>
+            
+            <div class="menu-section">
+                <p class="menu-label">MAIN MENU</p>
+                <ul class="nav-links">
+                    <li class="active"><a href="#"><i data-feather="grid"></i> Dashboard</a></li>
+                    <li><a href="#"><i data-feather="bar-chart-2"></i> Analytics</a><span class="badge">12</span></li>
+                    <li><a href="#"><i data-feather="list"></i> Transactions</a></li>
+                    <li><a href="#"><i data-feather="file-text"></i> Reports</a></li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <p class="menu-label">SYSTEM</p>
+                <ul class="nav-links">
+                    <li><a href="#"><i data-feather="cpu"></i> ksqlDB Streams</a><span class="badge">3</span></li>
+                    <li><a href="#"><i data-feather="link"></i> Connectors</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Nav -->
+            <header class="top-nav">
+                <div class="nav-left">
+                    <div class="search-bar">
+                        <i data-feather="search"></i>
+                        <input type="text" placeholder="Search orders or IDs... (Mock)">
+                    </div>
+                </div>
+                <div class="nav-right">
+                    <button class="icon-btn"><i data-feather="bell"></i></button>
+                    <div class="avatar"></div>
+                    <button id="injectBtn" class="btn-primary"><i data-feather="zap"></i> Inject Fraud Test</button>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <div class="page-header">
+                    <h1>Overview</h1>
+                    <p>Real-time summary of e-commerce data streaming</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="overview-cards">
+                    <div class="card stat-card primary-stat">
+                        <div class="stat-header">
+                            <div class="stat-icon"><i data-feather="shield"></i></div>
+                            <i data-feather="more-horizontal"></i>
+                        </div>
+                        <h3>Fraud Prevented</h3>
+                        <p class="stat-value" id="totalFraud">0</p>
+                        <div class="stat-footer">
+                            <span>Blocked in real-time by ksqlDB</span>
+                            <span class="trend positive"><i data-feather="arrow-up-right"></i> Active</span>
+                        </div>
+                    </div>
+
+                    <div class="card stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon light"><i data-feather="shopping-bag"></i></div>
+                            <i data-feather="more-horizontal" class="text-muted"></i>
+                        </div>
+                        <h3 class="text-muted">Total Orders Processed</h3>
+                        <p class="stat-value dark" id="totalOrders">0</p>
+                        <div class="stat-footer">
+                            <span class="text-muted">Ingested via Datagen</span>
+                        </div>
+                    </div>
+
+                    <div class="card stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon light"><i data-feather="dollar-sign"></i></div>
+                            <i data-feather="more-horizontal" class="text-muted"></i>
+                        </div>
+                        <h3 class="text-muted">Value Protected</h3>
+                        <p class="stat-value dark">$<span id="fraudValue">0.00</span></p>
+                        <div class="stat-footer">
+                            <span class="text-muted">Total stopped from loss</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="dashboard-grid">
+                    <!-- Live Orders Table -->
+                    <div class="card table-card">
+                        <div class="card-header">
+                            <h3>Live Order Stream</h3>
+                            <div class="header-actions">
+                                <div class="search-bar small">
+                                    <i data-feather="search"></i>
+                                    <input type="text" placeholder="Filter...">
+                                </div>
+                                <button class="btn-outline"><i data-feather="filter"></i> Filter</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="ordersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>User</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ordersBody">
+                                    <!-- Rows inserted via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Alerts Feed -->
+                    <div class="card alerts-card">
+                        <div class="card-header">
+                            <h3>Active Alerts</h3>
+                            <span class="live-badge">Live</span>
+                        </div>
+                        <div id="alertsContainer" class="alerts-feed">
+                            <div class="empty-state">
+                                <i data-feather="check-circle"></i>
+                                <p>No fraud detected yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        feather.replace();
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

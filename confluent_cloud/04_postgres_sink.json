@@ -1,0 +1,16 @@
+{
+  "name": "PostgresSinkConnector_ValidOrders",
+  "config": {
+    "connector.class": "PostgresSink",
+    "topics": "valid_orders",
+    "input.data.format": "AVRO",
+    "connection.host": "<YOUR_POSTGRES_HOST>",
+    "connection.port": "5432",
+    "connection.user": "<YOUR_POSTGRES_USER>",
+    "connection.password": "<YOUR_POSTGRES_PASSWORD>",
+    "db.name": "ecommerce_db",
+    "insert.mode": "INSERT",
+    "table.name.format": "inventory_fulfillment",
+    "tasks.max": "1"
+  }
+}
